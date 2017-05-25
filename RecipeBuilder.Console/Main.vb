@@ -128,8 +128,10 @@ Module Main
                         'Write the report recipe to the file
                         Using file As New StreamWriter(filename)
                             With reportRecipe
+                                StatusUpdate(username.Value, "Saving report recipe : " & .ReportName)
+
                                 file.WriteLine($"ReportName{vbTab}{.ReportName}")
-                                file.WriteLine($"ApplicationId{vbTab}{.ApplicationId}")
+                                file.WriteLine($"ApplicationId{vbTab}{CInt(.ApplicationId)}")
                                 file.WriteLine($"Compress{vbTab}{.Compress}")
                                 file.WriteLine($"Country{vbTab}{.Country}")
                                 file.WriteLine($"DivisionId{vbTab}{.DivisionId}")
@@ -148,12 +150,15 @@ Module Main
             'If we're supposed to submit recipes
             If config.Parsed
                 Using configFile As New StreamReader(config.Value.FullName)
+                    StatusUpdate(username.Value, "Parsing config file : " & config.Value.FullName)
+
                     Dim reportRecipe as New ReportRecipe
                     Dim currentLine As String, variableName as String, variableValue as String
                     Dim upcs As New List(Of String)
                     Dim itemNums As New List(Of Long)
                     Dim storeStart as Long = -1, storeEnd as Long = -1
                     Dim day As Date = Nothing, dayStart as Date = Nothing, dayEnd As Date = Nothing
+                    Dim weeks as New List(Of Long)
 
                     Do While configFile.Peek() >= 0
                         currentLine = configFile.ReadLine()
@@ -172,11 +177,13 @@ Module Main
                             Case "StoreEnd"
                                 storeEnd = CLng(variableValue)
                             Case "Day"
-                                day = CDate(variableValue)
-                            Case "dayStart"
-                                dayStart = CDate(variableValue)
-                            Case "dayEnd"
-                                dayEnd = CDate(variableValue)
+                                day = DateAdd(DateInterval.Day, CLng(variableValue), Today)
+                            Case "DayStart"
+                                dayStart = DateAdd(DateInterval.Day, CLng(variableValue), Today)
+                            Case "DayEnd"
+                                dayEnd = DateAdd(DateInterval.Day, CLng(variableValue), Today)
+                            Case "Weeks"
+                                weeks.Add(DateAdd(DateInterval.Day, CLng(variableValue) * 7, Today).GetWmWeek())
                             Case "Zip"
                                 reportRecipe.Compress = CBool(variableValue)
                             Case "Format"
@@ -197,7 +204,7 @@ Module Main
                                             Case "Compress"
                                                 reportRecipe.Compress = CBool(recipeValue)
                                             Case "Country"
-                                                reportRecipe.Country = CType(recipeValue, CountryCodes)
+                                                reportRecipe.Country = CType([Enum].Parse(GetType(CountryCodes), recipeValue), CountryCodes)
                                             Case "DivisionId"
                                                 reportRecipe.DivisionId = CShort(recipeValue)
                                             Case "EncodedReport"
@@ -217,12 +224,13 @@ Module Main
                                     If upcs.Count > 0 Then .ReplaceUpc(upcs)
                                     If itemNums.Count > 0 Then .ReplaceItems(itemNums)
                                     If storeStart > -1 AndAlso storeEnd > -1 Then .ReplaceStoreNumbers(storeStart,storeEnd)
-                                    If Not IsNothing(day) Then .ReplaceTimeframe(day)
-                                    If Not IsNothing(dayStart) AndAlso IsNothing(dayEnd) Then .ReplaceTimeframe(dayStart,dayEnd)
+                                    If day > New DateTime() Then .ReplaceTimeframe(day)
+                                    If dayStart > New DateTime() AndAlso dayEnd > New DateTime() Then .ReplaceTimeframe(dayStart,dayEnd)
+                                    If weeks.Count > 0 Then .ReplaceTimeframe(weeks)
                                 End With
 
-                                WriteLine("Attempting to submit report: " & reportRecipe.ReportName)
-                                WriteLine("Successfully submitted report, Job #: " & _retailLink.SubmitReportAsync(reportRecipe).ToString())
+                                StatusUpdate(username.Value, "Attempting to submit report: " & reportRecipe.ReportName)
+                                StatusUpdate(username.Value, "Successfully submitted report, Job #: " & _retailLink.SubmitReportAsync(reportRecipe).Result.ToString())
                         End Select
                     Loop
 
