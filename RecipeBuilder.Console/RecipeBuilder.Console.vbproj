@@ -50,21 +50,27 @@
     <Reference Include="CommandLineArgumentsParser, Version=3.0.10.0, Culture=neutral, PublicKeyToken=16ad7bf6f4a1666c, processorArchitecture=MSIL">
       <HintPath>..\packages\CommandLineArgumentsParser.3.0.10\lib\net45\CommandLineArgumentsParser.dll</HintPath>
     </Reference>
+    <Reference Include="Harvest.Logging, Version=1.1.2.0, Culture=neutral, PublicKeyToken=29efcb3ef9fb01ac, processorArchitecture=MSIL">
+      <HintPath>..\packages\Harvest.Walmart.3.0.40\lib\Harvest.Logging.dll</HintPath>
+    </Reference>
     <Reference Include="Harvest.Network, Version=2.0.4.106, Culture=neutral, PublicKeyToken=29efcb3ef9fb01ac, processorArchitecture=MSIL">
-      <HintPath>..\packages\Harvest.Walmart.3.0.36\lib\Harvest.Network.dll</HintPath>
+      <HintPath>..\packages\Harvest.Walmart.3.0.40\lib\Harvest.Network.dll</HintPath>
     </Reference>
-    <Reference Include="Harvest.Shared, Version=3.1.68.0, Culture=neutral, PublicKeyToken=29efcb3ef9fb01ac, processorArchitecture=MSIL">
-      <HintPath>..\packages\Harvest.Walmart.3.0.36\lib\Harvest.Shared.dll</HintPath>
+    <Reference Include="Harvest.Shared, Version=3.1.69.0, Culture=neutral, PublicKeyToken=29efcb3ef9fb01ac, processorArchitecture=MSIL">
+      <HintPath>..\packages\Harvest.Walmart.3.0.40\lib\Harvest.Shared.dll</HintPath>
     </Reference>
-    <Reference Include="Harvest.Walmart, Version=3.0.36.0, Culture=neutral, PublicKeyToken=29efcb3ef9fb01ac, processorArchitecture=MSIL">
-      <HintPath>..\packages\Harvest.Walmart.3.0.36\lib\Harvest.Walmart.dll</HintPath>
+    <Reference Include="Harvest.Walmart, Version=3.0.40.0, Culture=neutral, PublicKeyToken=29efcb3ef9fb01ac, processorArchitecture=MSIL">
+      <HintPath>..\packages\Harvest.Walmart.3.0.40\lib\Harvest.Walmart.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.4.369, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <HintPath>..\packages\Harvest.Walmart.3.0.36\lib\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>..\packages\Harvest.Walmart.3.0.40\lib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="LogicNP.CryptoLicensing, Version=11.0.0.0, Culture=neutral, PublicKeyToken=4a3c0a4c668b48b4">
-      <HintPath>..\packages\Harvest.Walmart.3.0.36\lib\LogicNP.CryptoLicensing.dll</HintPath>
+      <HintPath>..\packages\Harvest.Walmart.3.0.40\lib\LogicNP.CryptoLicensing.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Harvest.Walmart.3.0.40\lib\Microsoft.ApplicationInsights.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

@@ -179,9 +179,9 @@ Module Main
                             Case "Day"
                                 day = DateAdd(DateInterval.Day, CLng(variableValue), Today)
                             Case "DayStart"
-                                dayStart = DateAdd(DateInterval.Day, CLng(variableValue), Today)
+                                dayStart = CDate(DateAdd(DateInterval.Day, CLng(variableValue.Split(CType(" ", Char()))(0)), Today) & " " & variableValue.Split(CType(" ", Char()))(1))
                             Case "DayEnd"
-                                dayEnd = DateAdd(DateInterval.Day, CLng(variableValue), Today)
+                                dayEnd = CDate(DateAdd(DateInterval.Day, CLng(variableValue.Split(CType(" ", Char()))(0)), Today) & " " & variableValue.Split(CType(" ", Char()))(1))
                             Case "Weeks"
                                 weeks.Add(DateAdd(DateInterval.Day, CLng(variableValue) * 7, Today).GetWmWeek())
                             Case "Zip"
@@ -224,8 +224,8 @@ Module Main
                                     If upcs.Count > 0 Then .ReplaceUpc(upcs)
                                     If itemNums.Count > 0 Then .ReplaceItems(itemNums)
                                     If storeStart > -1 AndAlso storeEnd > -1 Then .ReplaceStoreNumbers(storeStart,storeEnd)
-                                    If day > New DateTime() Then .ReplaceTimeframe(day)
-                                    If dayStart > New DateTime() AndAlso dayEnd > New DateTime() Then .ReplaceTimeframe(dayStart,dayEnd)
+                                    If day > New Date() Then .ReplaceTimeframe(day)
+                                    If dayStart > New Date() AndAlso dayEnd > New Date() Then .ReplaceTimeframe(dayStart, dayEnd)
                                     If weeks.Count > 0 Then .ReplaceTimeframe(weeks)
                                 End With
 
